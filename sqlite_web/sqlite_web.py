@@ -749,6 +749,9 @@ def table_query(table):
         sql = qsql = request.form['sql']
         model_class = dataset[table].model_class
 
+        export_name = request.form['exportname']
+        if not export_name:
+            export_name = 'export'
         if 'export_json' in request.form:
             ordering = request.form.get('export_ordering')
             export_format = 'json'
@@ -770,7 +773,7 @@ def table_query(table):
 
         if export_format:
             query = model_class.raw(qsql).dicts()
-            return export(table, query, export_format)
+            return export(table, query, export_format, export_name)
 
         try:
             cursor = dataset.query(qsql)
@@ -812,19 +815,19 @@ def set_table_definition_preference():
         del session[key]
     return jsonify({key: show})
 
-def export(table, query, export_format):
+def export(table, query, export_format, export_name='export'):
     buf = StringIO()
     if export_format == 'json':
         kwargs = {'indent': 2}
-        filename = '%s-export.json' % table
+        filename = '%s.json' % export_name
         mimetype = 'text/javascript'
     elif export_format == 'csv':
         kwargs = {}
-        filename = '%s-export.csv' % table
+        filename = '%s.csv' % export_name
         mimetype = 'text/csv'
     elif export_format == 'tsv':
         kwargs = {}
-        filename = '%s-export.tsv' % table
+        filename = '%s.tsv' % export_name
         minetype = 'text/csv'
 
     # Avoid any special chars in export filename.
