@@ -828,7 +828,7 @@ def export(table, query, export_format, export_name='export'):
     elif export_format == 'tsv':
         kwargs = {}
         filename = '%s.tsv' % export_name
-        minetype = 'text/csv'
+        mimetype = 'text/csv'
     else:
         kwargs = {}
         filename = 'result.csv'
