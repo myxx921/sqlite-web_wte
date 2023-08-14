@@ -818,10 +818,14 @@ def export(table, query, export_format):
         kwargs = {'indent': 2}
         filename = '%s-export.json' % table
         mimetype = 'text/javascript'
-    else:
+    elif export_format == 'csv':
         kwargs = {}
         filename = '%s-export.csv' % table
         mimetype = 'text/csv'
+    elif export_format == 'tsv':
+        kwargs = {}
+        filename = '%s-export.tsv' % table
+        minetype = 'text/csv'
 
     # Avoid any special chars in export filename.
     filename = re.sub(r'[^\w\d\-\.]+', '', filename)
