@@ -749,7 +749,7 @@ def table_query(table):
         sql = qsql = request.form['sql']
         model_class = dataset[table].model_class
 
-        export_name = request.form['exportname']
+        export_name = request.form.get('exportname')
         if not export_name:
             export_name = 'export'
         if 'export_json' in request.form:
@@ -829,7 +829,11 @@ def export(table, query, export_format, export_name='export'):
         kwargs = {}
         filename = '%s.tsv' % export_name
         minetype = 'text/csv'
-
+    else:
+        kwargs = {}
+        filename = 'result.csv'
+        mimetype = 'text/csv'
+        
     # Avoid any special chars in export filename.
     filename = re.sub(r'[^\w\d\-\.]+', '', filename)
 
