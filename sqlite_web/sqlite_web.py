@@ -755,6 +755,9 @@ def table_query(table):
         elif 'export_csv' in request.form:
             ordering = request.form.get('export_ordering')
             export_format = 'csv'
+        elif 'export_tsv' in request.form:
+            ordering = request.form.get('export_ordering')
+            export_format = 'tsv'
         else:
             ordering = request.form.get('ordering')
             export_format = None
