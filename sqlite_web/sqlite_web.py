@@ -888,6 +888,8 @@ def table_import(table):
         else:
             if file_obj.filename.lower().endswith('.json'):
                 format = 'json'
+            elif file_obj.filename.lower().endswith('.tsv'):
+                format = 'tsv'
             else:
                 format = 'csv'
 
