@@ -882,8 +882,8 @@ def table_import(table):
         file_obj = request.files.get('file')
         if not file_obj:
             flash('Please select an import file.', 'danger')
-        elif not file_obj.filename.lower().endswith(('.csv', '.json')):
-            flash('Unsupported file-type. Must be a .json or .csv file.',
+        elif not file_obj.filename.lower().endswith(('.csv', '.json', '.tsv')):
+            flash('Unsupported file-type. Must be a .json, .tsv or .csv file.',
                   'danger')
         else:
             if file_obj.filename.lower().endswith('.json'):
